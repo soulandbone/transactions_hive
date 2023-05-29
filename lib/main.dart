@@ -4,6 +4,8 @@ import 'package:transactions_hive/screens/transactions_screen.dart';
 
 void main() async {
   await Hive.initFlutter();
+
+  //Hive.registerAdapter(MyObjectAdapter);
   runApp(const MyApp());
 }
 
