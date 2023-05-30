@@ -111,8 +111,7 @@ class _TransactionDialogState extends State<TransactionDialog> {
     );
   }
 
-  Future<void> addTransaction(
-      String name, bool isExpense, double amount) async {
+  void addTransaction(String name, bool isExpense, double amount) {
     final transaction = Transaction(
         name: name,
         createdDate: DateTime.now(),
@@ -122,7 +121,7 @@ class _TransactionDialogState extends State<TransactionDialog> {
     var box = Boxes.getTransactions();
     box.add(transaction);
     Navigator.of(context).pop();
-    print(
-        "The values of the box are ${box.values.toList().cast<Transaction>()[3].name}");
+    // print(
+    //     "The values of the box are ${box.values.toList().cast<Transaction>()[3].name}");
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:transactions_hive/widgets/transaction_dialog.dart';
+import 'package:transactions_hive/widgets/transaction_tile.dart';
 
 import '../models/transaction.dart';
 
@@ -32,8 +33,10 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
           return ListView.builder(
             itemCount: list.length,
-            itemBuilder: (context, index) => ListTile(
-              title: Text(list[index].name),
+            itemBuilder: (context, index) => TransactionTile(
+              title: list[index].name,
+              amount: list[index].amount,
+              date: list[index].createdDate.toString(),
             ),
           );
         },
