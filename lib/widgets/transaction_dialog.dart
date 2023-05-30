@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:transactions_hive/helpers/snackbar_helper.dart';
+import 'package:transactions_hive/helpers/boxes.dart';
+
+import '../models/transaction.dart';
 
 class TransactionDialog extends StatefulWidget {
   const TransactionDialog({super.key});
@@ -12,6 +14,8 @@ class TransactionDialog extends StatefulWidget {
 class _TransactionDialogState extends State<TransactionDialog> {
   bool isExpense = true;
   final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class _TransactionDialogState extends State<TransactionDialog> {
                 ),
               ),
               TextFormField(
+                controller: nameController,
                 validator: (value) {
                   if (value!.isEmpty || value.length < 2) {
                     return 'Please submit a valid name for the transaction';
@@ -43,6 +48,7 @@ class _TransactionDialogState extends State<TransactionDialog> {
               ),
               const Gap(10),
               TextFormField(
+                controller: amountController,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter an amount';
@@ -96,11 +102,27 @@ class _TransactionDialogState extends State<TransactionDialog> {
         TextButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                showSnackbarMessage(context, message: 'Validation is working');
+                addTransaction(nameController.text, isExpense,
+                    double.parse(amountController.text));
               }
             },
             child: const Text('Add'))
       ],
     );
+  }
+
+  Future<void> addTransaction(
+      String name, bool isExpense, double amount) async {
+    final transaction = Transaction(
+        name: name,
+        createdDate: DateTime.now(),
+        amount: amount,
+        isExpense: isExpense);
+
+    var box = Boxes.getTransactions();
+    box.add(transaction);
+    Navigator.of(context).pop();
+    print(
+        "The values of the box are ${box.values.toList().cast<Transaction>()[3].name}");
   }
 }

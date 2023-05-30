@@ -7,7 +7,7 @@ void main() async {
   await Hive.initFlutter();
 
   Hive.registerAdapter(TransactionAdapter());
-  await Hive.openBox(
+  await Hive.openBox<Transaction>(
       'transactions'); // Tutorial uses await Hive.openBox<Transaction>('transactions); but I dont think it is longer needed.
 
   runApp(const MyApp());
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TransactionsScreen(),
+      home: TransactionsScreen(),
     );
   }
 }
