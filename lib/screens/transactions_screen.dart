@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:transactions_hive/widgets/transaction_dialog.dart';
 import 'package:transactions_hive/widgets/transaction_tile.dart';
 
@@ -32,13 +33,18 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
           final list = box.values.toList().cast<Transaction>();
 
           return ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (context, index) => TransactionTile(
-              title: list[index].name,
-              amount: list[index].amount,
-              date: list[index].createdDate.toString(),
-            ),
-          );
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                final DateTime date = list[index].createdDate;
+                final DateFormat formatter = DateFormat.yMMMMd();
+                final String formatted = formatter.format(date);
+
+                return TransactionTile(
+                  title: list[index].name,
+                  amount: list[index].amount,
+                  date: formatted,
+                );
+              });
         },
       ),
     );

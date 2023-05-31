@@ -14,10 +14,12 @@ class TransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2,
       child: ListTile(
+        //contentPadding: const EdgeInsets.all(2),
         title: Text(title),
         subtitle: Text(date),
-        trailing: Text(amount.toString()),
+        trailing: Text('\$${amount.toString()}'),
       ),
     );
   }
