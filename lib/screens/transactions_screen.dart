@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:transactions_hive/widgets/net_expense.dart';
 import 'package:transactions_hive/widgets/transaction_dialog.dart';
 import 'package:transactions_hive/widgets/transaction_tile.dart';
 
@@ -19,7 +21,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hive Expense Tracket'),
+        title: const Text('Hive Expense Tracker'),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
@@ -32,19 +34,30 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
         builder: (context, box, widget) {
           final list = box.values.toList().cast<Transaction>();
 
-          return ListView.builder(
-              itemCount: list.length,
-              itemBuilder: (context, index) {
-                final DateTime date = list[index].createdDate;
-                final DateFormat formatter = DateFormat.yMMMMd();
-                final String formatted = formatter.format(date);
+          return Column(
+            children: [
+              NetExpenseWidget(
+                  amount: list.fold<double>(
+                      0,
+                      ((previousValue, element) =>
+                          previousValue + element.amount))),
+              const Gap(20),
+              Expanded(
+                  child: ListView.builder(
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        final DateTime date = list[index].createdDate;
+                        final DateFormat formatter = DateFormat.yMMMMd();
+                        final String formatted = formatter.format(date);
 
-                return TransactionTile(
-                  title: list[index].name,
-                  amount: list[index].amount,
-                  date: formatted,
-                );
-              });
+                        return TransactionTile(
+                          title: list[index].name,
+                          amount: list[index].amount,
+                          date: formatted,
+                        );
+                      }))
+            ],
+          );
         },
       ),
     );
