@@ -32,28 +32,28 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
       body: ValueListenableBuilder<Box>(
         valueListenable: Hive.box<Transaction>('transactions').listenable(),
         builder: (context, box, widget) {
-          final list = box.values.toList().cast<Transaction>();
+          final transactionsList = box.values.toList().cast<Transaction>();
 
           return Column(
             children: [
               NetExpenseWidget(
-                  amount: list.fold<double>(
+                  amount: transactionsList.fold<double>(
                       0,
                       ((previousValue, element) =>
                           previousValue + element.amount))),
               const Gap(20),
               Expanded(
                   child: ListView.builder(
-                      itemCount: list.length,
+                      itemCount: transactionsList.length,
                       itemBuilder: (context, index) {
-                        final DateTime date = list[index].createdDate;
+                        final transaction = transactionsList[index];
+                        final DateTime date =
+                            transactionsList[index].createdDate;
                         final DateFormat formatter = DateFormat.yMMMMd();
                         final String formatted = formatter.format(date);
 
                         return TransactionTile(
-                          title: list[index].name,
-                          amount: list[index].amount,
-                          date: formatted,
+                          transaction: transaction,
                         );
                       }))
             ],

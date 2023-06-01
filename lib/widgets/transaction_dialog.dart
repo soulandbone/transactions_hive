@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
+
 import 'package:transactions_hive/helpers/boxes.dart';
 
 import '../models/transaction.dart';
@@ -116,7 +116,7 @@ class _TransactionDialogState extends State<TransactionDialog> {
     final transaction = Transaction(
         name: name,
         createdDate: DateTime.now(),
-        amount: amount,
+        amount: amount, // amount: isExpense ? -amount : amount,
         isExpense: isExpense);
 
     var box = Boxes.getTransactions();

@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
 
-class TransactionTile extends StatelessWidget {
-  final String title;
-  final String date;
-  final double amount;
+import '../models/transaction.dart';
 
-  TransactionTile(
-      {required this.title,
-      required this.date,
-      required this.amount,
-      super.key});
+class TransactionTile extends StatelessWidget {
+  // Make it so that the constructor is a Transaction, instead of using its individual components
+  final Transaction transaction;
+
+  TransactionTile({required this.transaction, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       elevation: 2,
-      child: ListTile(
+      child: ExpansionTile(
         //contentPadding: const EdgeInsets.all(2),
-        title: Text(title),
-        subtitle: Text(date),
-        trailing: Text('\$${amount.toStringAsFixed(2)}'),
+        title: Text(
+          transaction.name,
+          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(transaction.createdDate.toString()),
+        trailing: Text(
+          '\$${transaction.amount.toStringAsFixed(2)}',
+          style: TextStyle(
+              color: transaction.isExpense ? Colors.red : Colors.green),
+        ),
+        children: const [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(onPressed: null, child: Text('Edit')),
+              TextButton(onPressed: null, child: Text('Delete'))
+            ],
+          )
+        ],
       ),
     );
   }
