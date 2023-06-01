@@ -33,8 +33,16 @@ class TransactionTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextButton(onPressed: null, child: Text('Edit')),
-              TextButton(onPressed: deleteTrx, child: const Text('Delete'))
+              TextButton.icon(
+                label: const Text('Edit'),
+                icon: const Icon(Icons.edit),
+                onPressed: null,
+              ),
+              TextButton.icon(
+                label: const Text('Delete'),
+                icon: const Icon(Icons.delete),
+                onPressed: deleteTrx,
+              ),
             ],
           )
         ],

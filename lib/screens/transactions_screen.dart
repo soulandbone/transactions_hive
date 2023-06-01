@@ -36,11 +36,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
           return Column(
             children: [
-              NetExpenseWidget(
-                  amount: transactionsList.fold<double>(
-                      0,
-                      ((previousValue, element) =>
-                          previousValue + element.amount))),
+              NetExpenseWidget(transactionList: transactionsList),
               const Gap(20),
               Expanded(
                   child: ListView.builder(
