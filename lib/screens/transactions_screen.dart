@@ -26,8 +26,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () => showDialog(
-              context: context,
-              builder: (context) => const TransactionDialog()),
+              context: context, builder: (context) => TransactionDialog()),
           child: const Icon(Icons.add)),
       body: ValueListenableBuilder<Box>(
         valueListenable: Hive.box<Transaction>('transactions').listenable(),

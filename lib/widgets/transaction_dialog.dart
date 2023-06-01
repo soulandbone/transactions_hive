@@ -6,7 +6,10 @@ import 'package:transactions_hive/helpers/boxes.dart';
 import '../models/transaction.dart';
 
 class TransactionDialog extends StatefulWidget {
-  const TransactionDialog({super.key});
+  final bool isEdit;
+  TransactionDialog({
+    this.isEdit = false,
+  });
 
   @override
   State<TransactionDialog> createState() => _TransactionDialogState();
@@ -99,7 +102,9 @@ class _TransactionDialogState extends State<TransactionDialog> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const TextButton(onPressed: null, child: Text('Cancel')),
+        TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel')),
         TextButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
