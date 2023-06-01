@@ -46,14 +46,8 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                   child: ListView.builder(
                       itemCount: transactionsList.length,
                       itemBuilder: (context, index) {
-                        final transaction = transactionsList[index];
-                        final DateTime date =
-                            transactionsList[index].createdDate;
-                        final DateFormat formatter = DateFormat.yMMMMd();
-                        final String formatted = formatter.format(date);
-
                         return TransactionTile(
-                          transaction: transaction,
+                          transaction: transactionsList[index],
                         );
                       }))
             ],
