@@ -13,12 +13,11 @@ class NetExpenseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final amount = calculateNetAmount();
-    print('Amount is $amount');
     return Column(
       children: [
         const Gap(15),
         const Text(
-          'Net Expense',
+          'Net Balance',
           style: TextStyle(fontSize: 18, color: Colors.green),
         ),
         Text(
@@ -45,9 +44,6 @@ class NetExpenseWidget extends StatelessWidget {
     double expenseAmount = expenseList.fold(
         0, (previousValue, element) => previousValue + element.amount);
 
-    print('income amount is $incomeAmount');
-    print('incomeList is $incomeList');
-    print('transaction list is ${transactionList[0].amount}');
     return (incomeAmount - expenseAmount);
   }
 }
