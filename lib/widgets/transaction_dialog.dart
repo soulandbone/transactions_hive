@@ -55,6 +55,9 @@ class _TransactionDialogState extends State<TransactionDialog> {
                   }
                 },
                 decoration: const InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1, color: Colors.black54)),
                     hintText: 'Enter Name',
                     enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -74,6 +77,9 @@ class _TransactionDialogState extends State<TransactionDialog> {
                 },
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1, color: Colors.black54)),
                     hintText: 'Enter Amount',
                     enabledBorder: OutlineInputBorder(
                         borderSide:
