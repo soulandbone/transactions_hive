@@ -32,20 +32,32 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
         builder: (context, box, widget) {
           final transactionsList = box.values.toList().cast<Transaction>();
 
-          return Column(
-            children: [
-              NetExpenseWidget(transactionList: transactionsList),
-              const Gap(20),
-              Expanded(
-                  child: ListView.builder(
-                      itemCount: transactionsList.length,
-                      itemBuilder: (context, index) {
-                        return TransactionTile(
-                          transaction: transactionsList[index],
-                        );
-                      }))
-            ],
-          );
+          return transactionsList.isEmpty
+              ? Container(
+                  margin: const EdgeInsets.only(top: 200),
+                  child: const Text(
+                    'There are no transactions',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              : Column(
+                  children: [
+                    NetExpenseWidget(transactionList: transactionsList),
+                    const Gap(20),
+                    Expanded(
+                        child: ListView.builder(
+                            itemCount: transactionsList.length,
+                            itemBuilder: (context, index) {
+                              return TransactionTile(
+                                transaction: transactionsList[index],
+                              );
+                            }))
+                  ],
+                );
         },
       ),
     );
