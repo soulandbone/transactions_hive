@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:transactions_hive/widgets/transaction_dialog.dart';
 
 import '../models/transaction.dart';
 
@@ -36,7 +37,11 @@ class TransactionTile extends StatelessWidget {
               TextButton.icon(
                 label: const Text('Edit'),
                 icon: const Icon(Icons.edit),
-                onPressed: null,
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => TransactionDialog(
+                          transaction: transaction,
+                        )),
               ),
               TextButton.icon(
                 label: const Text('Delete'),

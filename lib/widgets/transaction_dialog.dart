@@ -6,9 +6,9 @@ import 'package:transactions_hive/helpers/boxes.dart';
 import '../models/transaction.dart';
 
 class TransactionDialog extends StatefulWidget {
-  final bool isEdit;
+  final Transaction? transaction;
   TransactionDialog({
-    this.isEdit = false,
+    this.transaction,
   });
 
   @override
@@ -16,6 +16,17 @@ class TransactionDialog extends StatefulWidget {
 }
 
 class _TransactionDialogState extends State<TransactionDialog> {
+  @override
+  void initState() {
+    if (widget.transaction != null) {
+      isEdit = true;
+      nameController.text = widget.transaction!.name;
+      amountController.text = widget.transaction!.amount.toStringAsFixed(2);
+    }
+    super.initState();
+  }
+
+  bool isEdit = false;
   bool isExpense = true;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -107,12 +118,16 @@ class _TransactionDialogState extends State<TransactionDialog> {
             child: const Text('Cancel')),
         TextButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                addTransaction(nameController.text, isExpense,
-                    double.parse(amountController.text));
+              final validated = _formKey.currentState!.validate();
+              if (validated) {
+                isEdit
+                    ? editTransaction(widget.transaction!, nameController.text,
+                        isExpense, double.parse(amountController.text))
+                    : addTransaction(nameController.text, isExpense,
+                        double.parse(amountController.text));
               }
             },
-            child: const Text('Add'))
+            child: Text(isEdit ? 'Edit' : 'Add'))
       ],
     );
   }
@@ -126,6 +141,18 @@ class _TransactionDialogState extends State<TransactionDialog> {
 
     var box = Boxes.getTransactions();
     box.add(transaction);
+    Navigator.of(context).pop();
+    // print(
+    //     "The values of the box are ${box.values.toList().cast<Transaction>()[3].name}");
+  }
+
+  void editTransaction(
+      Transaction transaction, String name, bool isExpense, double amount) {
+    transaction.name = name;
+    transaction.amount = amount;
+    transaction.isExpense = isExpense;
+
+    transaction.save();
     Navigator.of(context).pop();
     // print(
     //     "The values of the box are ${box.values.toList().cast<Transaction>()[3].name}");

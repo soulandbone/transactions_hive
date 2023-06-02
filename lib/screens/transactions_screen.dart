@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:transactions_hive/widgets/net_expense.dart';
 import 'package:transactions_hive/widgets/transaction_dialog.dart';
 import 'package:transactions_hive/widgets/transaction_tile.dart';
