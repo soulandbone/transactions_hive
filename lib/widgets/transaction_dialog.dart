@@ -39,11 +39,10 @@ class _TransactionDialogState extends State<TransactionDialog> {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(children: [
-              const Align(
+              Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Add Transaction',
-                  style: TextStyle(fontSize: 20),
+                  isEdit ? 'Edit Transaction' : 'Add Transaction',
                 ),
               ),
               TextFormField(
